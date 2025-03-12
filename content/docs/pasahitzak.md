@@ -21,13 +21,24 @@ Erantzuna: ez ditugu gogoratu behar, pasahitz kudeatzaile bat erabiltzea aitortz
 Hemen gusto eta kolore asko ditugu. Ni ez naiz produktu desberdinak baloratzera sartuko. Denean daude abantailak eta desabantailak, baita nik proposatuko dudanean: Unixetik datorre **pass** programa.
 
 ## Zer da pass?
-Enkriptatzeko gpg programa erabiltzen duen kudeatzaile sinple bat da. Helburu bakoitza fitxategi desberdina batean gordetze  du eta denak enkriptatu egiten ditu.
+Enkriptatzeko gpg programa erabiltzen duen kudeatzaile sinple bat da. Autentikazio helburu bakoitza fitxategi desberdin batean gordetze  du eta denak enkriptatu egiten ditu. Oinarrian GPG enkripzioa eta fitxategi sistema besterik ez ditu erabiltzen.
+
+## Linux
+GNU/Linux sistema eragileetan, ohikoa da sistemako paketeekin batera instalatzeko aukera izatea. Archlinuxen kasu partikularrean adibidez ``pacman -S pass`` bidez instalatzen da.
+GPG instalatuta izateaz gain, gako publiko/pribatu pare bat sortu beharko dugu: ``gpg --expert --full-gen-key`` erabili daiteke horretarako. 
+    Pass erabiltzen hasteko prest geundeke. Lehenengo pausoa gordailua hasieratzea litzateke. Edozein kasutan, [pass-en dokumentazioan](https://git.zx2c4.com/password-store/about/) oso ondo azaltzen da bere funtzionamendua.
+
+### Emacs
+Emacsek pass **Password-Store** modua dauka. Honek pass programa erabiltzen du eta bertako pasahitzak emacs bidez atzitzeko aukera eskaintzen du. Emcaseko Melpa pakeeten listan pass (Major mode for password-store.el) bezala agertzen da.
 
 ## Windowsen emandako pausoak
 
-git instalatu eta errepositorioa inportatu.
+Windowsen ez dut lortu oraindik emacs bitartez erabiltzerik. Ala era badago pass-winmenu izeneko programa bat eta honek Windoseko menu bezala pasahitzak atzitzeko aukera ematen du.
 
-gpg4win instalatu eta gako pribatua inportatu.
+Horretarako lehenik git instalatu eta errepositorioa inportatu beharko dugu. Nire kasuan, pass gordailua beste konputagailu batean sort
+ua nuen eta horregaitik da inportazioa lehenengo pausoa.
+
+Ondoren gpg4win instalatu eta gako pribatua inportatu. Beste konputagailuan gakoa exportatu behar izan dugu lehenik.
 
 pass-winmenu jeitsi deskromprimitu eta dokumentuen direktoriora eraman. Guk gpg4win instalatu dugunez, pass-winmenu.yaml fitxategian ondorengo aldaketa egin behar da: ``gpg-path: 'gpg'``
 
