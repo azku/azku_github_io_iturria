@@ -107,19 +107,59 @@ Egitura hau sortzeko **Label Studio** erabiltzea erabaki dugu. Hasieran 398 arga
 
 Label Studiok, badauka YOLOVek behar dituen formatuan datuak esportatzeko aukera. Aukera hori baliatuz, irudien direktorio bat eta anotazioen direktorio bat sortzen ditu.
 
-Entrenamendurako ordea, 3 direktorioko bikotetn (anotazioak eta irudiak) banatu behar dira. Horretarako python programatxo bat erabili dugu.
+![Label Studio esportazioak](label_studio_esportatu.png)
 
+Entrenamendurako ordea, 3 direktorioko bikotetan (anotazioak eta irudiak) banatu behar dira. Horretarako python programatxo bat erabili dugu.
+
+```python
+    # Load exported data
+    txts = glob(DATA_PATH + '/**/*.txt')
+    images = glob(DATA_PATH + '/**/*.jpg') + glob(DATA_PATH + '/**/*.png')
+
+    # Create DataFrame
+    df = pd.DataFrame({'txt': txts, 'image': images})
+
+    # Shuffle and split data
+    df = df.sample(frac=1, random_state=42).reset_index(drop=True)
+    train_size = int(0.8 * len(df))
+    train_df = df.iloc[:train_size]
+    test_df = df.iloc[train_size:]
+    val_df = test_df.sample(frac=0.5)
+    test_df = test_df.drop(val_df.index)
+
+    # Create directories
+    for split in ['train', 'test', 'val']:
+        os.makedirs(f'{TRAINING_PATH}/{split}/images', exist_ok=True)
+        os.makedirs(f'{TRAINING_PATH}/{split}/labels', exist_ok=True)
+
+    # Copy files to respective directories
+    for split, split_df in [('train', train_df), ('test', test_df), ('val', val_df)]:
+        for _, row in split_df.iterrows():
+            shutil.copy(row['image'], f'{TRAINING_PATH}/{split}/images')
+            shutil.copy(row['txt'], f'{TRAINING_PATH}/{split}/labels')
+```
 Behin train, test eta val direktoriotan dena banatuta dagoela ``data.yaml`` fitxategia sortu dugu ondorengo edukiarekin:
 
-{% highlight yaml %}
+``` yaml
 train: ../train/images
 val: ../val/images
 test: ../test/images
 
 nc: 1
 names: ['matrikula']
-{% endhighlight %}
+    {% endhighlight %}
+```
 
 ### Kutxa orientatuak - Oriented Bounding Box (OBB) Model
 Matrikulak entrenatzerakoan, irudi asko argertzen diran non matrikula inguratzen duen kutxa optimoa biratuta egongo litzatekeena.
-Bilaketa burutu ostean Yolov8 OBB entrenatzeko aukera aztertu da.
+Bilaketa burutu ostean Yolov8 OBB entrenatzeko aukera aztertu da. Horretarako programa guztia aldatu behar izan da.
+
+Frogak burutu ostean, emaitza onak lortu dira eta beraz OBB ereduarekin jarraitzea proposatzen da. Kontutan hartu behar da detekzioak exekutatu diren irudi sorta, entrenamenduko bera dela.
+
+![emaitzak](detekzio_emaitzak.png)
+
+### Inoiz ikusi gabeko argazkiekin programa probatu
+
+### Estatistikak bildu
+
+### Dena txukundu
