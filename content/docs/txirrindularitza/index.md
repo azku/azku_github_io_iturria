@@ -163,3 +163,7 @@ Frogak burutu ostean, emaitza onak lortu dira eta beraz OBB ereduarekin jarraitz
 ### Estatistikak bildu
 
 ### Dena txukundu
+
+### Ideiak 
+Detekzioak funtzionatzen badu, detektatutako matrikula zatiak hartu eta OCR aplikatu.
+
