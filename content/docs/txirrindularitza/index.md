@@ -3,6 +3,28 @@ title: Txirrindularitza Proiektua
 type: docs
 ---
 
+## Label Studio lokalki martxan jartzea
+```bash { lineNos=inline tabWidth=2}
+mkdir label_studio_env
+python3 -m venv label_studio_env
+source label_studio_env/bin/activate
+python -m pip install label-studio
+label-studio
+```
+Webgune bat martxan jarriko da http://localhost:8080 urlan. Lehenengo aldian, erabiltzaile eta pasahitza sortu beharko dira.
+
+### Label Studio ML
+Aurre-anotazioek etiketatzeko lana errazten dute. Hauek aktibatu ahal izateko Label Studio ML docker kontenedorean martxan jarriko dugu. Kontenedore honek, lokalki martxan dugun Label Studiora sarbidea izan behar du.
+Horretarako, Label Studio barnean, erabiltzailearen ezarpenetan **legacy token** aktibatu behar dugu eta token hau erabili behar da ML martxan jartzeko erabiltzen dugun docker-compose fitxategian.
+Adi Label Studioren IP-a ez da 127.0.0.1 izango docker barrutik.
+
+## Irudiak Gehitzea (augmentation)
+ultrlytics-eko pake albumentations paketea erabilita burutu ditugu irudi gehitzeak.
+
+```python
+import albumentations as A
+```
+
 ## Informazioa prozesatzea
 Ubuntu zerbitzari instalazio batetik habiatuta, YOLOV8 modeloa erabiliz argazkien predikzioak egiteko ondorengo pausoak jarraitu behar dira.
 Lehenengo eta behin, beharrezkoak diren pakete pare bat instalatu eta python ingurune bat sortu beharko dugu. Ingurunea sortzearen arrazoia, ``pip`` komandoaren erabilera da. Instalazio berrietan pythonen paketeak instalatzeko ingurune kontrolatuak sortzeko gomendia bultzatzen da:
